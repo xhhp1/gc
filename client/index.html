@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>جدول  كراج الميكانيك</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="page">
+
+    <header class="topbar">
+      <div class="left">
+        <button class="btn ghost" id="homeBtn">Home</button>
+      </div>
+
+      <div class="center">
+        <button class="btn primary big" id="switchBtn">🔐 الانتقال الى جدول المعتمدين والادارة</button>
+      </div>
+
+      <div class="right">
+        <div class="search">
+          <input id="searchInput" placeholder="بحث بالاسم... الكود..." />
+          <button class="btn" id="searchBtn">بحث</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="subbar">
+  <div class="tabs">
+    <button class="btn primary" id="addTopBtn">+ إضافة سجل</button>
+    <button class="btn primary" id="adjustBtn">+ نقاط/ساعات</button>
+    <button class="chipBtn active" id="tabEmployees">الموظفون</button>
+    <button class="chipBtn" id="tabCourses">الدورات</button>
+    <button class="chipBtn" id="tabVacations">الإجازات</button>
+    <button class="chipBtn" id="tabAbsence">رصد الغياب</button>
+  </div>
+
+      <div class="authBox">
+        <span id="whoami" class="muted"></span>
+        <button class="btn" id="loginBtn">تسجيل الدخول</button>
+        <button class="btn danger hidden" id="logoutBtn">تسجيل الخروج</button>
+        <button class="btn hidden" id="adminToggleBtn">لوحة الإدارة</button>
+      </div>
+    </div>
+
+    <main>
+  <div id="employeesPanel">
+    <div id="content"></div>
+  </div>
+
+  <div id="coursesPanel" class="hidden panel">
+    <div class="panelHeader">
+      <h2>الدورات</h2>
+      <p class="muted">قريباً</p>
+    </div>
+  </div>
+
+  <div id="vacationsPanel" class="hidden panel">
+    <div class="panelHeader">
+      <h2>الإجازات</h2>
+      <p class="muted">قريباً</p>
+    </div>
+  </div>
+
+  <div id="absencePanel" class="hidden panel">
+    <div class="panelHeader">
+      <h2>رصد الغياب</h2>
+      <p class="muted">قريباً</p>
+    </div>
+  </div>
+</main>
+
+    <!-- Admin panel -->
+    <section id="adminPanel" class="panel hidden">
+      <div class="panelHeader">
+        <h2>لوحة الإدارة</h2>
+        <p class="muted">إنشاء مستخدمين + تحديد الصلاحيات</p>
+      </div>
+
+      <div class="card">
+        <h3>إنشاء مستخدم جديد</h3>
+        <div class="grid3">
+          <input id="newUser" placeholder="username" />
+          <input id="newPass" placeholder="password" />
+          <select id="newRole">
+            <option value="viewer">viewer</option>
+            <option value="editor">editor</option>
+            <option value="admin">admin</option>
+          </select>
+        </div>
+        <button class="btn primary" id="createUserBtn">إنشاء</button>
+      </div>
+
+      <div class="card">
+        <h3>المستخدمون</h3>
+        <div id="usersTable"></div>
+      </div>
+    </section>
+
+    <!-- Add row modal -->
+    <div class="modal hidden" id="modal">
+      <div class="modalCard">
+        <div class="modalHead">
+          <h3 id="modalTitle">إضافة سجل</h3>
+          <button class="btn ghost" id="closeModal">✕</button>
+        </div>
+
+        <div class="formGrid">
+          <label>القسم
+            <select id="fSection" disabled>
+  <option value="leadership">القيادة</option>
+  <option value="level9">مستوى 9</option>
+  <option value="level8">مستوى 8</option>
+  <option value="level7">مستوى 7</option>
+  <option value="level6">مستوى 6</option>
+  <option value="level5">مستوى 5</option>
+  <option value="level4">مستوى 4</option>
+  <option value="level3">مستوى 3</option>
+  <option value="level2">مستوى 2</option>
+  <option value="level1">مستوى 1</option>
+  <option value="trainee">مستوى متدرب</option>
+           </select>
+          </label>
+
+          <label>الرتب
+  <input id="fSubgroup" placeholder="تلقائي" readonly />
+</label>
+
+         <label>الكود
+  <input id="fCode" placeholder="اكتب الرقم فقط (مثال: 110)" inputmode="numeric" />
+</label>
+
+         <label>الرتبة
+  <input id="fRank" placeholder="تلقائي" readonly />
+
+  <!-- يظهر فقط لمستوى 4/5/6 -->
+  <select id="fRankChoice" class="hidden">
+    <option value="اشراف منطقة">اشراف منطقة</option>
+    <option value="مهندس">مهندس</option>
+  </select>
+</label>
+
+          <label>المسمى الوظيفي 
+            <input id="fName" placeholder="الاسم" />
+          </label>
+
+          <label>ديسكورد ID
+            <input id="fDiscord" placeholder="123..." />
+          </label>
+
+          <label>ملاحظات
+            <input id="fNotes" placeholder="اختياري" />
+          </label>
+
+          <label>تاريخ اخر ترقية
+            <input id="fDate" placeholder="YYYY-MM-DD" />
+          </label>
+        </div>
+
+        <div class="modalActions">
+          <button class="btn primary" id="saveRowBtn">حفظ</button>
+          <button class="btn" id="cancelRowBtn">إلغاء</button>
+        </div>
+      </div>
+    </div>
+<div class="modal hidden" id="adjustModal">
+  <div class="modalCard">
+    <div class="modalHead">
+      <h3>إضافة نقاط/ساعات</h3>
+      <button class="btn ghost" id="closeAdjust">✕</button>
+    </div>
+
+    <div class="formGrid">
+      <label>ديسكورد ID
+        <label>العملية
+  <select id="adjOperation">
+    <option value="add">زيادة</option>
+    <option value="remove">إنقاص</option>
+  </select>
+</label>
+        <input id="adjDiscord" placeholder="6803..." />
+      </label>
+
+      <label>النوع
+        <select id="adjType">
+          <option value="points">نقاط</option>
+          <option value="hours">ساعات</option>
+        </select>
+      </label>
+
+      <label>الكمية
+        <input id="adjAmount" type="number" step="1" placeholder="مثال: 5 أو -5" />
+      </label>
+    </div>
+
+ <div class="modalActions">
+  <button class="btn danger" id="resetAdjustBtn">تصفير</button>
+  <button class="btn primary" id="saveAdjustBtn">حفظ</button>
+  <button class="btn" id="cancelAdjustBtn">إلغاء</button>
+</div>
+  </div>
+</div>
+
+    <!-- Login modal -->
+    <div class="modal hidden" id="loginModal">
+      <div class="modalCard">
+        <div class="modalHead">
+          <h3>تسجيل الدخول</h3>
+          <button class="btn ghost" id="closeLogin">✕</button>
+        </div>
+
+        <div class="formGrid">
+          <label>Username
+            <input id="lUser" placeholder="admin" />
+          </label>
+          <label>Password
+            <input id="lPass" type="password" placeholder="••••••" />
+          </label>
+        </div>
+
+        <div class="modalActions">
+          <button class="btn primary" id="doLoginBtn">دخول</button>
+          <button class="btn" id="cancelLoginBtn">إلغاء</button>
+        </div>
+
+        <p class="muted small">
+          أول تشغيل: admin / admin123 (غيرها لاحقاً من .env)
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+ <script src="./app.js" defer></script>
+</body>
+</html>
